@@ -1,17 +1,34 @@
-# This is a sample Python script.
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-    print("HELLO")
+def constant_noise():
+    # Set the sampling rate and duration of the signal
+    t1 = input('Podaj czas początkowy:')
+    d = input('Podaj czas trwania sygnału:')
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    sampling_rate = 1000  # samples per second
+    duration = 1  # in seconds
+
+    # Create a time axis for the signal
+    t = np.linspace(0, duration, sampling_rate*duration, endpoint=False)
+
+    # Generate the constant signal of amplitude 2
+    constant_signal = 2*np.ones_like(t)
+
+    # Plot the signal
+    plt.plot(t, constant_signal)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Amplitude')
+    plt.title('Constant signal of amplitude 2')
+    plt.show()
+
+constant_noise()
+
+# Prompt the user to enter a value and store it in a variable
+value = input("Enter a value: ")
+
+# Print the entered value
+print("You entered:", value)
+
