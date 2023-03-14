@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 def get_input():
     time_start = int(input('Podaj czas początkowy:'))
@@ -13,7 +14,7 @@ def get_input():
 def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y):
 
     # Create a time axis for the signal
-    t = np.linspace(time_start, time_to_end, sampling_rate * time_to_end)
+    t = np.linspace(time_start, time_to_end, sampling_rate)
 
     plt.plot(t, values_y)
     plt.xlabel('Time (s)')
@@ -21,23 +22,38 @@ def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y
     plt.title(name)
     plt.show()
 
+def sinus_signal():
+    # time_start, time_to_end, amplitude, sampling_rate = get_input()
+    time_start, time_to_end, amplitude, sampling_rate = 2, 3, 3, 100
+    basic_period = float(input('Podaj okres podstawowy sygnału:'))
 
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+    values_y = np.zeros(nr_of_samplings)
+    for x in range(0, nr_of_samplings):
+        print(x)
+        values_y[x] = amplitude * math.sin(2.0 * math.pi * (x - time_start) / basic_period)
+
+    draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 def constant_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
 
-    # Set the sampling rate and duration of the signal
-    values_y = np.random.uniform(-amplitude/2, amplitude/2, sampling_rate * time_to_end)
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
 
-    draw_graph("Constant noise", time_start, time_to_end, amplitude, sampling_rate, values_y)
+    # Set the sampling rate and duration of the signal
+    values_y = np.random.uniform(-amplitude/2, amplitude/2, nr_of_samplings)
+
+    draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 def gaussian_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
 
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+
     # Set the sampling rate and duration of the signal
-    values_y = np.random.normal(0, amplitude/2, sampling_rate * time_to_end)
+    values_y = np.random.normal(0, amplitude/2, nr_of_samplings)
 
-    draw_graph("Gaussian noise", time_start, time_to_end, amplitude, sampling_rate, values_y)
+    draw_graph("Gaussian noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
-gaussian_noise()
-
-
+# sinus_signal()
+# gaussian_noise()
+constant_noise()
