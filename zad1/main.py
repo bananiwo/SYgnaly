@@ -3,16 +3,14 @@ import matplotlib.pyplot as plt
 
 def constant_noise():
     # Set the sampling rate and duration of the signal
-    t1 = input('Podaj czas początkowy:')
-    d = input('Podaj czas trwania sygnału:')
-
-
+    time_start = int(input('Podaj czas początkowy:'))
+    time_to_end = int(input('Podaj czas trwania sygnału:'))
+    duration = time_start + time_to_end
 
     sampling_rate = 1000  # samples per second
-    duration = 1  # in seconds
 
     # Create a time axis for the signal
-    t = np.linspace(0, duration, sampling_rate*duration, endpoint=False)
+    t = np.linspace(time_start, duration, sampling_rate*duration)
 
     # Generate the constant signal of amplitude 2
     constant_signal = 2*np.ones_like(t)
