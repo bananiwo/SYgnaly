@@ -30,8 +30,14 @@ def constant_noise():
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, sampling_rate, values_y)
 
+def gaussian_noise():
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
 
+    # Set the sampling rate and duration of the signal
+    values_y = np.random.normal(0, amplitude/2, sampling_rate * time_to_end)
 
+    draw_graph("Gaussian noise", time_start, time_to_end, amplitude, sampling_rate, values_y)
 
-constant_noise()
+gaussian_noise()
+
 
