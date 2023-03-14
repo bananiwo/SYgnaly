@@ -10,23 +10,28 @@ def get_input():
 
     return time_start, time_to_end, amplitude, sampling_rate
 
-
-def constant_noise():
-    # Set the sampling rate and duration of the signal
-    time_start, time_to_end, amplitude, sampling_rate = get_input()
-    random_Y = np.random.uniform(-amplitude/2, amplitude/2, sampling_rate * time_to_end)
+def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y):
 
     # Create a time axis for the signal
     t = np.linspace(time_start, time_to_end, sampling_rate * time_to_end)
 
-
-    # Plot the signal
-    plt.plot(t, random_Y)
+    plt.plot(t, values_y)
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude')
-    title_str = 'Constant noise of amplitude ' + str(amplitude)
-    plt.title(title_str)
+    plt.title(name)
     plt.show()
+
+
+def constant_noise():
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
+
+    # Set the sampling rate and duration of the signal
+    values_y = np.random.uniform(-amplitude/2, amplitude/2, sampling_rate * time_to_end)
+
+    draw_graph("Constant noise", time_start, time_to_end, amplitude, sampling_rate, values_y)
+
+
+
 
 constant_noise()
 
