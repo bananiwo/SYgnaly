@@ -23,17 +23,29 @@ def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y
     plt.show()
 
 def sinus_signal():
-    # time_start, time_to_end, amplitude, sampling_rate = get_input()
-    time_start, time_to_end, amplitude, sampling_rate = 2, 3, 3, 100
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
     basic_period = float(input('Podaj okres podstawowy sygnału:'))
 
     nr_of_samplings = sampling_rate * (time_to_end - time_start)
     values_y = np.zeros(nr_of_samplings)
     for x in range(0, nr_of_samplings):
-        print(x)
         values_y[x] = amplitude * math.sin(2.0 * math.pi * (x - time_start) / basic_period)
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
+def sinus_straight_signal():
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
+    basic_period = float(input('Podaj okres podstawowy sygnału:'))
+
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+    values_y = np.zeros(nr_of_samplings)
+    for x in range(0, nr_of_samplings):
+        values_y[x] = 0.5 * amplitude * ((math.sin(2.0 * math.pi * (x - time_start) / basic_period)) + abs(math.sin(2.0 * math.pi * (x - time_start) / basic_period)))
+
+    draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
+
+
 def constant_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
 
@@ -56,4 +68,5 @@ def gaussian_noise():
 
 # sinus_signal()
 # gaussian_noise()
-constant_noise()
+# constant_noise()
+sinus_straight_signal()
