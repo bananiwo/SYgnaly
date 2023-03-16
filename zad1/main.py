@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+
 def get_input():
     time_start = int(input('Podaj czas początkowy:'))
     duration = int(input('Podaj czas trwania sygnału:'))
@@ -10,6 +11,7 @@ def get_input():
     sampling_rate = int(input('Podaj częstotliwość próbkowania:'))
 
     return time_start, time_to_end, amplitude, sampling_rate
+
 
 def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y):
 
@@ -22,6 +24,7 @@ def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y
     plt.title(name)
     plt.show()
 
+
 def sinus_signal():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
     basic_period = float(input('Podaj okres podstawowy sygnału:'))
@@ -32,6 +35,7 @@ def sinus_signal():
         values_y[x] = amplitude * math.sin(2.0 * math.pi * (x - time_start) / basic_period)
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
 
 def jump():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
@@ -44,6 +48,7 @@ def jump():
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
+
 def rectangular_signal(): #6
     time_start, time_to_end, amplitude, sampling_rate = get_input()
     # time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 100
@@ -51,7 +56,6 @@ def rectangular_signal(): #6
     fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
     # basic_period = 2
     # fill_value = 0.5
-
 
     nr_of_samplings = sampling_rate * (time_to_end - time_start)
     values_y = np.zeros(nr_of_samplings)
@@ -61,6 +65,7 @@ def rectangular_signal(): #6
             values_y[x * sampling_rate + i] = amplitude
 
     draw_graph("Rectangular signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
 
 def rectangular_symmetrical_signal(): #7
     time_start, time_to_end, amplitude, sampling_rate = get_input()
@@ -84,6 +89,7 @@ def rectangular_symmetrical_signal(): #7
     #         values_y[x + i] = amplitude
 
     draw_graph("Rectangular symmetrical signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
 
 def jump_signal(): #9
     time_start, time_to_end, amplitude, sampling_rate = get_input()
@@ -113,7 +119,6 @@ def jump_signal(): #9
     draw_graph("Jump signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 
-
 def sinus_half_straight_signal():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
     basic_period = float(input('Podaj okres podstawowy sygnału:'))
@@ -124,6 +129,7 @@ def sinus_half_straight_signal():
         values_y[x] = 0.5 * amplitude * ((math.sin(2.0 * math.pi * (x - time_start) / basic_period)) + abs(math.sin(2.0 * math.pi * (x - time_start) / basic_period)))
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
 
 def sinus_double_half_straight_signal():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
@@ -138,6 +144,7 @@ def sinus_double_half_straight_signal():
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
+
 def constant_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
 
@@ -147,6 +154,7 @@ def constant_noise():
     values_y = np.random.uniform(-amplitude/2, amplitude/2, nr_of_samplings)
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+
 
 def gaussian_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
