@@ -45,31 +45,30 @@ def jump():
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 def rectangular_signal(): #6
-    # time_start, time_to_end, amplitude, sampling_rate = get_input()
-    time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 5
-    # basic_period = float(input('Podaj okres podstawowy sygnału:'))
-    # fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
-    basic_period = 10
-    fill_value = 0.5
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
+    # time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 100
+    basic_period = float(input('Podaj okres podstawowy sygnału:'))
+    fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
+    # basic_period = 2
+    # fill_value = 0.5
 
-    #sampling rate / basic_period = 5
 
     nr_of_samplings = sampling_rate * (time_to_end - time_start)
     values_y = np.zeros(nr_of_samplings)
 
-    for x in range(time_start * sampling_rate, time_to_end * sampling_rate, basic_period):
-        for i in range(int(basic_period * fill_value)):
-            values_y[x + i] = amplitude
+    for x in range(time_start, time_to_end, basic_period):
+        for i in range(int(basic_period * fill_value * sampling_rate)):
+            values_y[x * sampling_rate + i] = amplitude
 
-    draw_graph("Rectangle signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+    draw_graph("Rectangular signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 def rectangular_symmetrical_signal(): #7
-    # time_start, time_to_end, amplitude, sampling_rate = get_input()
-    time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 1000
-    # basic_period = float(input('Podaj okres podstawowy sygnału:'))
-    # fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
-    basic_period = 2
-    fill_value = 0.5
+    time_start, time_to_end, amplitude, sampling_rate = get_input()
+    # time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 1000
+    basic_period = float(input('Podaj okres podstawowy sygnału:'))
+    fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
+    # basic_period = 2
+    # fill_value = 0.5
 
     nr_of_samplings = sampling_rate * (time_to_end - time_start)
     values_y = np.zeros(nr_of_samplings)
@@ -164,6 +163,6 @@ def gaussian_noise():
 # constant_noise()
 # sinus_half_straight_signal()
 # sinus_double_half_straight_signal()
-# rectangular_signal()
-rectangular_symmetrical_signal()
+rectangular_signal()
+# rectangular_symmetrical_signal()
 # jump_signal()
