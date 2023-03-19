@@ -25,16 +25,23 @@ def draw_graph(name, time_start, time_to_end, amplitude, sampling_rate, values_y
     plt.show()
 
 
-def sinus_signal():
-    time_start, time_to_end, amplitude, sampling_rate = get_input()
-    basic_period = float(input('Podaj okres podstawowy sygnału:'))
-
-    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+def sinus_signal_values(nr_of_samplings: int, amplitude: int, time_start: int, period_in_samples: int):
     values_y = np.zeros(nr_of_samplings)
     for x in range(0, nr_of_samplings):
-        values_y[x] = amplitude * math.sin(2.0 * math.pi * (x - time_start) / basic_period)
+        values_y[x] = amplitude * math.sin(2.0 * math.pi * (x - time_start) / period_in_samples)
 
-    draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
+    return values_y
+
+
+def sinus_signal():
+    time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 10
+    basic_period = 2
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+    period_in_samples = nr_of_samplings / basic_period
+
+    values_y = sinus_signal_values(nr_of_samplings, amplitude, time_start, period_in_samples)
+
+    draw_graph("Sinus signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 
 def jump():
@@ -49,20 +56,26 @@ def jump():
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 
-def rectangular_signal(): #6
-    time_start, time_to_end, amplitude, sampling_rate = get_input()
-    # time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 100
-    basic_period = float(input('Podaj okres podstawowy sygnału:'))
-    fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
-    # basic_period = 2
-    # fill_value = 0.5
-
-    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+def rectangular_signal_values(nr_of_samplings: int, amplitude: int, time_start: int, time_to_end: int, basic_period: int, fill_value: float, sampling_rate: int):
     values_y = np.zeros(nr_of_samplings)
 
     for x in range(time_start, time_to_end, basic_period):
         for i in range(int(basic_period * fill_value * sampling_rate)):
             values_y[x * sampling_rate + i] = amplitude
+    return values_y
+
+
+def rectangular_signal(): #6
+    # time_start, time_to_end, amplitude, sampling_rate = get_input()
+    time_start, time_to_end, amplitude, sampling_rate = 0, 10, 10, 100
+    # basic_period = float(input('Podaj okres podstawowy sygnału:'))
+    # fill_value = float(input('Podaj współczynnik wypełnienia sygnału:'))
+    basic_period = 2
+    fill_value = 0.5
+
+    nr_of_samplings = sampling_rate * (time_to_end - time_start)
+
+    values_y = rectangular_signal_values(nr_of_samplings, amplitude, time_start, time_to_end, basic_period, fill_value, sampling_rate)
 
     draw_graph("Rectangular signal", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
@@ -145,16 +158,31 @@ def sinus_double_half_straight_signal():
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
 
+def constant_noise_values(amplitude: int, nr_of_samplings: int):
+    return np.random.uniform(-amplitude/2, amplitude/2, nr_of_samplings)
+
+
 def constant_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
 
     nr_of_samplings = sampling_rate * (time_to_end - time_start)
 
     # Set the sampling rate and duration of the signal
-    values_y = np.random.uniform(-amplitude/2, amplitude/2, nr_of_samplings)
+    values_y = constant_noise_values(amplitude, nr_of_samplings)
 
     draw_graph("Constant noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
+def sum_sinus_constant_noise():
+    time_start, time_to_end, sampling_rate = 0, 10, 100
+    period = 2
+    nr_of_samples = sampling_rate * (time_to_end - time_start)
+    amplitude_noise = 3
+    amplitude_sin = 10
+    a = constant_noise_values(amplitude_noise, nr_of_samples)
+    b = sinus_signal_values(nr_of_samples, amplitude_sin, time_start, period * sampling_rate)
+
+    values_y = a + b
+    draw_graph("Sinus + constant noise", time_start, time_to_end, amplitude_noise + amplitude_sin, nr_of_samples, values_y)
 
 def gaussian_noise():
     time_start, time_to_end, amplitude, sampling_rate = get_input()
@@ -166,11 +194,14 @@ def gaussian_noise():
 
     draw_graph("Gaussian noise", time_start, time_to_end, amplitude, nr_of_samplings, values_y)
 
+
 # sinus_signal()
 # gaussian_noise()
 # constant_noise()
 # sinus_half_straight_signal()
 # sinus_double_half_straight_signal()
-rectangular_signal()
+# rectangular_signal()
 # rectangular_symmetrical_signal()
 # jump_signal()
+#ractangular_sum_sinus()
+sum_sinus_constant_noise()
